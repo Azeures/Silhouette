@@ -7,12 +7,32 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
 
+    let captureSession = AVCaptureSession()
+    
+    var captureDevice : AVCaptureDevice?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    
+        captureSession.sessionPreset = AVCaptureSessionPresetLow
+        
+        let devices = AVCaptureDevice.devices()
+        print("Hello World!")
+        print(devices)
+    
+        for device in devices {
+            if (device.hasMediaType(AVMediaTypeVideo)) {
+                if (device.position == AVCaptureDevicePosition.Back) {
+                    captureDevice = device as? AVCaptureDevice
+                }
+                
+            }
+        }
+    
     }
 
     override func didReceiveMemoryWarning() {
